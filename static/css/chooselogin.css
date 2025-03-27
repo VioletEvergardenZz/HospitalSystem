@@ -1,0 +1,152 @@
+/* 全局样式 */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* 添加背景的圆形装饰 */
+body::before {
+    content: "";
+    position: absolute;
+    top: -100px;
+    left: -100px;
+    width: 300px;
+    height: 300px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    z-index: -1;
+    animation: float1 15s infinite alternate;
+}
+
+body::after {
+    content: "";
+    position: absolute;
+    bottom: -150px;
+    right: -150px;
+    width: 400px;
+    height: 400px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    z-index: -1;
+    animation: float2 20s infinite alternate;
+}
+
+@keyframes float1 {
+    0% {
+        transform: translate(0, 0);
+    }
+    100% {
+        transform: translate(50px, 50px);
+    }
+}
+
+@keyframes float2 {
+    0% {
+        transform: translate(0, 0);
+    }
+    100% {
+        transform: translate(-80px, -80px);
+    }
+}
+
+/* 头部样式 */
+.PageFont {
+    background-color: rgba(255, 255, 255, 0.8);
+    color: #007bff;
+    text-align: center;
+    padding: 30px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.PageFont h1 {
+    margin: 0;
+    font-size: 38px;
+    font-weight: 700;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 登录选项容器样式 */
+.bottom {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 60px;
+    padding: 80px 20px;
+    flex: 1;
+}
+
+/* 单个登录选项样式 */
+.PageDoctor,
+.PagePatient,
+.Administrator {
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 25px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    padding: 50px;
+    text-align: center;
+    transition: all 0.3s ease;
+    width: 320px;
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.PageDoctor:hover,
+.PagePatient:hover,
+.Administrator:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    background-color: rgba(255, 255, 255, 0.95);
+}
+
+/* 图片样式 */
+.PageDoctor img,
+.PagePatient img,
+.Administrator img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 30px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    border: 4px solid rgba(0, 123, 255, 0.3);
+    transition: all 0.3s ease;
+}
+
+.PageDoctor:hover img,
+.PagePatient:hover img,
+.Administrator:hover img {
+    border-color: rgba(0, 123, 255, 0.6);
+}
+
+/* 文字样式 */
+.PageDoctorP,
+.PagePatientP,
+.AdministratorP {
+    font-size: 26px;
+    font-weight: 700;
+    color: #007bff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 版权信息样式 */
+.copyright {
+    text-align: center;
+    padding: 20px 0;
+    background-color: rgba(255, 255, 255, 0.3);
+    color: #777;
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.copyright p span {
+    font-size: 14px;
+}

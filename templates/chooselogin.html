@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>医伴无忧 - 医院挂号预约平台</title>
+    <link rel="stylesheet" href="{% static 'css/chooselogin.css' %}">
+</head>
+
+<body>
+    <div class="PageFont">
+        <h1>医伴无忧 - 医院挂号预约平台</h1>
+    </div>
+
+    <div class="bottom">
+        <!-- 医生 -->
+        <div class="PageDoctor">
+            <a href="/doctorlogin/">
+                <img src="{% static 'images/doctor.png' %}" alt="医生登录">
+                <p class="PageDoctorP">医生登录</p>
+            </a>
+        </div>
+
+        <!-- 患者 -->
+        <div class="PagePatient">
+            <a href="/patientlogin/">
+                <img src="{% static 'images/patient.png' %}" alt="患者登录">
+                <p class="PagePatientP">患者登录</p>
+            </a>
+        </div>
+
+        <!-- 管理员 -->
+        <div class="Administrator">
+            <a href="admin/">
+                <img src="{% static 'images/admin.png' %}" alt="管理员登录">
+                <p class="AdministratorP">管理员登录</p>
+            </a>
+        </div>
+    </div>
+
+    <div class="copyright">
+        <p><span>&copy; zzy 版权所有</span></p>
+    </div>
+</body>
+
+</html>

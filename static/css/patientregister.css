@@ -1,0 +1,131 @@
+/* 全局样式 */
+body {
+    font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    /* 浅蓝色渐变背景，给人温馨的感觉 */
+    background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
+    display: flex;
+    justify-content: center;
+    /* 去掉 height: 100vh，让页面高度自适应 */
+    margin: 0;
+}
+
+/* 注册框容器 */
+.register_container {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(240, 250, 255, 0.9) 100%);
+    border-radius: 24px;
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.1), inset 0 0 10px rgba(255, 255, 255, 0.5);
+    padding: 60px;
+    width: 480px;
+    text-align: center;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    transition: all 0.3s ease;
+    /* 添加上下边距 */
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.register_container:hover {
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2), inset 0 0 15px rgba(255, 255, 255, 0.7);
+}
+
+/* 标题样式 */
+.title {
+    color: #00838f;
+    font-size: 36px;
+    margin-bottom: 30px;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 输入框样式 */
+.input_box {
+    width: 100%;
+    padding: 16px 20px;
+    margin-bottom: 30px;
+    border: 1px solid #80deea;
+    border-radius: 12px;
+    font-size: 20px;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #00838f;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.input_box:focus {
+    border-color: #00acc1;
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(0, 172, 193, 0.1);
+}
+
+/* 按钮样式 */
+.button_box {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.button_box:hover {
+    background: linear-gradient(135deg, #388e3c 0%, #2e7d32 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* 链接按钮样式 */
+.link_button {
+    display: block;
+    width: 100%;
+    padding: 16px;
+    margin-top: 20px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.7) 0%, rgba(240, 250, 255, 0.7) 100%);
+    color: #2e7d32;
+    border: none;
+    border-radius: 12px;
+    font-size: 20px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.link_button:hover {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(240, 250, 255, 0.9) 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* 标志容器 */
+.logo_box {
+    margin-bottom: 40px;
+}
+
+/* 标志图片 */
+.logo_img {
+    width: 140px;
+    height: 140px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.2));
+}
+
+/* 错误提示样式 */
+.error-message {
+    color: #FF5722;
+    font-size: 18px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: #FFF3E0;
+    border: 1px solid #FFCCBC;
+    border-radius: 8px;
+    padding: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

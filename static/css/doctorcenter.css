@@ -1,0 +1,112 @@
+body {
+	font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+	background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	margin: 0;
+}
+
+.main-container {
+	background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(240, 250, 255, 0.9) 100%);
+	border-radius: 24px;
+	box-shadow: 0 16px 32px rgba(0, 0, 0, 0.1), inset 0 0 10px rgba(255, 255, 255, 0.5);
+	padding: 60px;
+	width: 640px;
+	text-align: center;
+	border: 2px solid rgba(255, 255, 255, 0.8);
+	transition: all 0.3s ease;
+}
+
+.main-container:hover {
+	box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2), inset 0 0 15px rgba(255, 255, 255, 0.7);
+}
+
+.top img {
+	width: 200px;
+	height: 200px;
+	border-radius: 50%;
+	object-fit: cover;
+	border: 8px solid #2e7d32;
+	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+	transition: transform 0.3s ease;
+}
+
+.top img:hover {
+	transform: scale(1.06);
+}
+
+.top h1 {
+	color: #2e7d32;
+	font-size: 36px;
+	font-weight: 600;
+	margin: 24px 0 16px;
+	text-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.options {
+	margin: 48px 0;
+}
+
+.options p {
+	color: #2e7d32;
+	font-size: 26px;
+	font-weight: 600;
+	margin-bottom: 24px;
+	text-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.options dd {
+	margin: 24px 0;
+}
+
+.options dd a {
+	display: inline-flex;
+	align-items: center;
+	width: 80%;
+	padding: 16px;
+	background: linear-gradient(135deg, rgba(255, 255, 255, 0.7) 0%, rgba(240, 250, 255, 0.7) 100%);
+	color: #2e7d32;
+	border: none;
+	border-radius: 12px;
+	font-size: 20px;
+	text-decoration: none;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	box-sizing: border-box;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+	justify-content: center;
+}
+
+.options dd a:hover {
+	background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(240, 250, 255, 0.9) 100%);
+	transform: translateY(-3px);
+	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.options dd a img {
+	width: 28px;
+	height: 28px;
+	margin-left: 12px;
+}
+
+.logout button {
+	width: 80%;
+	padding: 16px;
+	background: linear-gradient(135deg, #4caf50 0%, #2e7d32 100%);
+	color: #fff;
+	border: none;
+	border-radius: 12px;
+	font-size: 20px;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	box-sizing: border-box;
+	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.logout button:hover {
+	background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%);
+	transform: translateY(-3px);
+	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}

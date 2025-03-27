@@ -1,0 +1,48 @@
+<!-- HospitalSystem/templates/patientcenter.html -->
+<!DOCTYPE html>
+{% load static %}
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>患者中心</title>
+    <link rel="stylesheet" href="{% static 'css/patientcenter.css' %}">
+</head>
+
+<body>
+    <div class="main-container">
+        <nav class="user-info">
+            <a href="#">
+                <span>{{ patient_name }}</span>
+                <span>👋</span>
+                <span class="emoji">🏥</span>
+            </a>
+            <a href="/">退出系统</a>
+        </nav>
+
+        <header class="page-title">
+            <h1>患者服务中心</h1>
+        </header>
+
+        <div class="service-cards">
+            <article class="service-card">
+                <a href="/choosedepartment/">智能预约挂号</a>
+            </article>
+            <article class="service-card">
+                <a href="/patientshowregistration/">我的预约记录</a>
+            </article>
+            <article class="service-card">
+                <a href="/traffic/">院内导航指引</a>
+            </article>
+            <article class="service-card">
+                <a href="/patientupdateinfo/">修改个人信息</a>
+            </article>
+            <article class="service-card">
+                <a href="{% url 'patient_evaluation_records' %}">医生评价</a>
+            </article>
+        </div>
+    </div>
+</body>
+
+</html>

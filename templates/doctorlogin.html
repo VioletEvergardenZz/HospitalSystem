@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <title>医生登录</title>
+    <link rel="stylesheet" href="{% static 'css/doctorlogin.css' %}">
+    <script>
+        window.onload = function () {
+            var errorMessage = document.querySelector('.error-message');
+            if (errorMessage) {
+                setTimeout(function () {
+                    errorMessage.style.display = 'none';
+                }, 3000);
+            }
+        };
+    </script>
+</head>
+
+<body>
+    <div class="login_container">
+        <div class="logo_box">
+            <img class="logo_img" src="/static/images/doctor.png" />
+        </div>
+        <form class="login_form" method="POST" action="/doctorlogin/">
+            <h1 class="title">辛苦了，欢迎登录</h1>
+            {% csrf_token %}
+            <input class="input_box" type="text" name="phone" placeholder="电话" />
+            <input class="input_box" type="password" name="password" placeholder="密码" />
+            <!-- 显示错误信息 -->
+            {% if error %}
+            <p class="error-message">{{ error }}</p>
+            {% endif %}
+            <input class="button_box" type="submit" value="登录" />
+            <a href="/" class="link_button">返回</a>
+        </form>
+    </div>
+</body>
+
+</html>

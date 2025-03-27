@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>选择科室</title>
+    <link rel="stylesheet" href="{% static 'css/choosedepartment.css' %}">
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const categoryItems = document.querySelectorAll('.category-list li');
+            const departmentLists = [];
+            // 假设每个分类对应一个科室列表，这里简单模拟
+            {% for d in all_department_list %}
+                departmentLists.push([{ name: '{{ d.name }}', id: {{ d.id }} }]);
+            {% endfor %}
+
+            categoryItems.forEach((item, index) => {
+                item.addEventListener('click', function () {
+                    // 移除所有 active 类
+                    categoryItems.forEach((el) => el.classList.remove('active'));
+                    // 给当前点击项添加 active 类
+                    this.classList.add('active');
+
+                    const departmentList = document.querySelector('.department-list ul');
+                    // 清空原有科室列表
+                    departmentList.innerHTML = '';
+
+                    const currentDepartments = departmentLists[index];
+                    currentDepartments.forEach((dept) => {
+                        const li = document.createElement('li');
+                        const a = document.createElement('a');
+                        a.href = `/choosedoctorandtime/${dept.id}`;
+                        a.textContent = dept.name;
+                        li.appendChild(a);
+                        departmentList.appendChild(li);
+                    });
+                });
+            });
+
+            // 默认显示第一个分类的科室列表
+            categoryItems[0].click();
+
+            // 获取返回按钮并添加点击事件
+            const backButton = document.getElementById('back-button');
+            backButton.addEventListener('click', function () {
+                window.location.href = '/patientcenter/';
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div class="header">
+        <h1>请选择挂号科室</h1>
+    </div>
+    <div class="container">
+        <div class="category-list">
+            <ul>
+                {% for d in all_department_list %}
+                <li>{{ d.name }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="department-list">
+            <h2>科室:</h2>
+            <ul></ul>
+        </div>
+        <button id="back-button">返回患者中心</button> <!-- 添加返回按钮 -->
+    </div>
+</body>
+
+</html>

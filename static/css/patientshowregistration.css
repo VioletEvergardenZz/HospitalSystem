@@ -1,0 +1,86 @@
+body {
+	font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+	background: linear-gradient(135deg, #e0f7fa, #b2ebf2);
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	min-height: 100vh;
+}
+
+.logo_box {
+	margin-bottom: 30px;
+	text-align: center;
+}
+
+.logo_img {
+	width: 120px;
+	height: 120px;
+	border-radius: 50%;
+	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+	object-fit: cover;
+	border: 3px solid #fff;
+}
+
+.login_box {
+	background-color: rgba(255, 255, 255, 0.9);
+	border-radius: 12px;
+	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+	padding: 40px;
+	width: 80%;
+	max-width: 700px;
+	backdrop-filter: blur(5px);
+}
+
+a {
+	display: inline-block;
+	margin-bottom: 20px;
+	color: #1890ff;
+	text-decoration: none;
+	font-weight: 600;
+	transition: color 0.3s ease;
+	font-size: 18px;
+}
+
+a:hover {
+	color: #40a9ff;
+}
+
+.title {
+	color: #262626;
+	font-size: 32px;
+	margin-bottom: 30px;
+	text-align: center;
+	font-weight: 600;
+	text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.div1,
+.div2 {
+	background-color: #fafafa;
+	border: 1px solid #e8e8e8;
+	border-radius: 8px;
+	padding: 20px;
+	margin-bottom: 20px;
+	transition: all 0.3s ease;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.div1:hover,
+.div2:hover {
+	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+	transform: translateY(-2px);
+}
+
+.input_box {
+	margin: 10px 0;
+	color: #595959;
+	font-size: 16px;
+}
+
+.input_box span {
+	font-weight: 600;
+	color: #f5222d;
+}
