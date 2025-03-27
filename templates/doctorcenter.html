@@ -8,34 +8,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>医生中心</title>
     <link rel="stylesheet" href="{% static 'css/doctorcenter.css' %}">
-    <script src="/static/js/doctorcenter.js" type="text/javascript" charset="utf-8"></script>
 </head>
 
 <body>
     <div class="main-container">
-        <div class="top">
-            <img src="/media/{{ doctor_image }}" alt="医生头像">
-            <h1>{{ doctor_name }}医生</h1>
-        </div>
-        <div class="options">
-            <p>您的操作选项</p>
-            <dl>
-                <dd>
-                    <a href="/doctorshowregistration/">
-                        我的患者
-                        <img src="/static/images/right.png" alt="箭头图标">
-                    </a>
-                </dd>
-                <dd>
-                    <a href="/doctor_view_patient_evaluations/">
-                        查看患者评价
-                        <img src="/static/images/right.png" alt="箭头图标">
-                    </a>
-                </dd>
-            </dl>
-        </div>
-        <div class="logout">
-            <button onclick="window.location.href='/doctorlogin/'">退出登录</button>
+        <nav class="user-info">
+            <a href="#">
+                <span>{{ doctor_name }}</span>
+                <span class="emoji">🏥</span>
+            </a>
+            <a href="/">退出系统</a>
+        </nav>
+
+        <header class="page-title">
+            <h1>医生服务中心</h1>
+        </header>
+
+        <div class="service-cards">
+            <article class="service-card">
+                <a href="/doctorshowregistration/">我的患者</a>
+            </article>
+            <article class="service-card">
+                <a href="/doctor_view_patient_evaluations/">查看患者评价</a>
+            </article>
         </div>
     </div>
 </body>
