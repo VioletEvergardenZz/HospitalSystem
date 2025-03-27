@@ -116,12 +116,6 @@ class ChooseDepartmentView(View):
 
 
 # 07选择医生和时间
-# HospitalSystem/hospital/views.py
-import datetime
-from django.views import View
-from django.shortcuts import render
-from .models import Department, Doctor, TimeNumber
-
 class ChooseDoctorAndTimeView(View):
     def get(self, request, department_id):
         department_id = int(department_id)
@@ -132,31 +126,49 @@ class ChooseDoctorAndTimeView(View):
             doctor_id = doctor.id
             time_number = TimeNumber.objects.filter(doctor_id=doctor_id).first()
             doctor_time_number_list.append([doctor, time_number])
-        tomorrow = (datetime.datetime.now() + datetime.timedelta(days=1)).strftime("%Y-%m-%d")
+
+        # 生成最近 15 天的日期列表
+        date_list = []
+        for i in range(15):
+            date = (datetime.datetime.now() + datetime.timedelta(days=i)).strftime("%Y-%m-%d")
+            date_list.append(date)
+
+        # 获取患者选择的日期，如果没有选择则默认为今天
+        selected_date = request.GET.get('date', datetime.datetime.now().strftime("%Y-%m-%d"))
+
+        # 定义时间列表
+        time_list = ['08', '09', '10', '11', '14', '15', '16', '17']
+
+        # 获取当前时间
+        now = datetime.datetime.now()
+
         return render(request, 'choosedoctorandtime.html',
                       {'department_name': department_name, 'doctor_time_number_list': doctor_time_number_list,
-                       'department_id': department_id, 'tomorrow': tomorrow})
+                       'department_id': department_id, 'date_list': date_list, 'selected_date': selected_date,
+                       'time_list': time_list, 'now': now})
 
 # 08确认挂号信息预约
 class ConfirmRegistrationView(View):
-    def get(self, request, department_id, doctor_id, consultation_hours):
+    def get(self, request, department_id, doctor_id, consultation_date, consultation_hours):
         time_number = TimeNumber.objects.filter(doctor_id=doctor_id).first()
-        if consultation_hours[:2] == '08' and time_number.eight == 0:
+        hour = consultation_hours[:2]
+        if hour == '08' and time_number.eight == 0:
             return
-        elif consultation_hours[:2] == '09' and time_number.nine == 0:
+        elif hour == '09' and time_number.nine == 0:
             return
-        elif consultation_hours[:2] == '10' and time_number.ten == 0:
+        elif hour == '10' and time_number.ten == 0:
             return
-        elif consultation_hours[:2] == '11' and time_number.eleven == 0:
+        elif hour == '11' and time_number.eleven == 0:
             return
-        elif consultation_hours[:2] == '14' and time_number.fourteen == 0:
+        elif hour == '14' and time_number.fourteen == 0:
             return
-        elif consultation_hours[:2] == '15' and time_number.fifteen == 0:
+        elif hour == '15' and time_number.fifteen == 0:
             return
-        elif consultation_hours[:2] == '16' and time_number.sixteen == 0:
+        elif hour == '16' and time_number.sixteen == 0:
             return
-        elif consultation_hours[:2] == '17' and time_number.seventeen == 0:
+        elif hour == '17' and time_number.seventeen == 0:
             return
+
         department_id = int(department_id)
         doctor_id = int(doctor_id)
         patient = request.session.get('patient', '')
@@ -165,9 +177,7 @@ class ConfirmRegistrationView(View):
         patient_name = patient
         doctor_name = doctor
         registration_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        consultation_hours = (datetime.datetime.now() + datetime.timedelta(days=1)).strftime(
-            "%Y-%m-%d") + " " + consultation_hours
-        # doctor_id
+        consultation_hours = f"{consultation_date} {consultation_hours}"
         patient_id = Patient.objects.filter(name=patient).first().id
         address = department.address
         registration_price = doctor.registration_price
@@ -199,21 +209,22 @@ class ConfirmRegistrationView(View):
                                     patient_id=patient_id, address=address, out_trade_num=out_trade_num,
                                     payway=payway, status=status)
             time_number = TimeNumber.objects.filter(doctor_id=doctor_id).first()
-            if consultation_hours[11:13] == '08':
-                time_number.eight = time_number.eight-1
-            elif consultation_hours[11:13] == '09':
+            hour = consultation_hours[11:13]
+            if hour == '08':
+                time_number.eight = time_number.eight - 1
+            elif hour == '09':
                 time_number.nine = time_number.nine - 1
-            elif consultation_hours[11:13] == '10':
+            elif hour == '10':
                 time_number.ten = time_number.ten - 1
-            elif consultation_hours[11:13] == '11':
+            elif hour == '11':
                 time_number.eleven = time_number.eleven - 1
-            elif consultation_hours[11:13] == '14':
+            elif hour == '14':
                 time_number.fourteen = time_number.fourteen - 1
-            elif consultation_hours[11:13] == '15':
+            elif hour == '15':
                 time_number.fifteen = time_number.fifteen - 1
-            elif consultation_hours[11:13] == '16':
+            elif hour == '16':
                 time_number.sixteen = time_number.sixteen - 1
-            elif consultation_hours[11:13] == '17':
+            elif hour == '17':
                 time_number.seventeen = time_number.seventeen - 1
             time_number.save()
             return render(request, 'confirmregistration.html', {'message': "支付成功,完成预约！"})
