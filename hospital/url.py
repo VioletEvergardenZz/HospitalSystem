@@ -18,10 +18,12 @@ urlpatterns = [
     path('patientshowregistration/', PatientShowRegistrationView.as_view()),
     path('traffic/', TrafficView.as_view()),
 
-    path('doctorcenter/', DoctorCenterView.as_view()),
+    path('doctorcenter/', DoctorCenterView.as_view(), name='doctorcenter'),  # 添加 name 参数
     path('doctorshowregistration/', DoctorShowRegistrationView.as_view()),
 
     path('patientupdateinfo/', PatientUpdateInfoView.as_view(), name='patient_update_info'),
     path('evaluate_doctor/<int:register_id>/', EvaluateDoctorView.as_view(), name='evaluate_doctor'),
     path('patient_evaluation_records/', PatientEvaluationRecordsView.as_view(), name='patient_evaluation_records'),
+
+    path('doctor_view_patient_evaluations/', DoctorViewPatientEvaluationsView.as_view()),
 ]

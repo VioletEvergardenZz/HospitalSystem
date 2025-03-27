@@ -1,0 +1,95 @@
+<!-- HospitalSystem/templates/doctor_view_patient_evaluations.html -->
+<!DOCTYPE html>
+{% load static %}
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>查看患者评价</title>
+    <link rel="stylesheet" href="{% static 'css/patientcenter.css' %}">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+       .main-container {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            margin: 50px auto;
+            max-width: 850px;
+            padding: 40px;
+        }
+
+       .main-container h2 {
+            color: #212529;
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+
+       .main-container ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+       .main-container li {
+            background-color: #e9ecef;
+            border: none;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+
+       .main-container li:hover {
+            background-color: #dee2e6;
+            transform: scale(1.02);
+        }
+
+       .main-container a.back-link {
+            display: block;
+            margin-top: 40px;
+            text-align: center;
+            background-color: #d3d9df;
+            color: #6c757d;
+            padding: 12px 0;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+        }
+
+       .main-container a.back-link:hover {
+            background-color: #b8c2cc;
+            color: #212529;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main-container">
+        <h2>患者评价记录</h2>
+        <ul>
+            {% for evaluation in evaluations %}
+            <li>
+                <p><strong>患者姓名:</strong> {{ evaluation.patient.name }}</p>
+                <p><strong>服务态度评分:</strong> {{ evaluation.service_attitude }}</p>
+                <p><strong>专业水平评分:</strong> {{ evaluation.professional_level }}</p>
+                <p><strong>评价内容:</strong> {{ evaluation.comment }}</p>
+                <p><strong>评价时间:</strong> {{ evaluation.evaluation_time }}</p>
+            </li>
+            {% endfor %}
+        </ul>
+        <a href="{% url 'doctorcenter' %}" class="back-link">返回医生中心</a>
+    </div>
+</body>
+
+</html>

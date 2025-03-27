@@ -385,3 +385,11 @@ class PatientEvaluationRecordsView(View):
             evaluation_exists = DoctorEvaluation.objects.filter(registration=register).exists()
             register.has_evaluation = evaluation_exists
         return render(request, 'patient_evaluation_records.html', {'register_list': register_list})
+
+# 医生查看患者评价
+class DoctorViewPatientEvaluationsView(View):
+    def get(self, request):
+        doctor_name = request.session.get('doctor')
+        doctor = Doctor.objects.filter(name=doctor_name).first()
+        evaluations = DoctorEvaluation.objects.filter(doctor=doctor)
+        return render(request, 'doctor_view_patient_evaluations.html', {'evaluations': evaluations})
