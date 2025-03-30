@@ -16,6 +16,7 @@
         <form class="register_form" method="POST" action="/patientupdateinfo/">
             <h1 class="title">修改患者信息</h1>
             {% csrf_token %}
+            <input type="hidden" name="patient_id" value="{{ patient.id }}"> <!-- 隐藏字段，传递患者 id -->
             {% if error %}
             <p class="error-message">{{ error }}</p>
             {% endif %}

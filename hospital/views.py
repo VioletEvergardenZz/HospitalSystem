@@ -328,7 +328,6 @@ class PatientUpdateInfoView(View):
         age = request.POST.get('age', '')
 
         # 验证手机号格式
-        import re
         phoneRegex = re.compile(r'^1[3-9]\d{9}$')
         if not phoneRegex.match(phone):
             return render(request, 'patientupdateinfo.html', {'patient': patient, 'error': '请输入有效的手机号码'})
@@ -336,6 +335,10 @@ class PatientUpdateInfoView(View):
         # 验证密码长度
         if password and len(password) < 6:
             return render(request, 'patientupdateinfo.html', {'patient': patient, 'error': '密码长度不能少于6位'})
+
+        # 检查手机号是否重复
+        if phone != patient.phone and Patient.objects.filter(phone=phone).exists():
+            return render(request, 'patientupdateinfo.html', {'patient': patient, 'error': '该手机号码已被注册，请使用其他号码'})
 
         # 更新患者信息
         patient.phone = phone
