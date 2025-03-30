@@ -265,15 +265,22 @@ class DoctorCenterView(View):
 # 12医生展示挂号信息
 class DoctorShowRegistrationView(View):
     def get(self, request):
-        doctor = request.session.get('doctor')
-        doctor = Doctor.objects.filter(name=doctor).first()
+        doctor_name = request.session.get('doctor')
+        if not doctor_name:
+            # 如果会话中没有医生姓名，重定向到医生登录页面
+            return redirect('/doctorlogin/')
+
+        doctor = Doctor.objects.filter(name=doctor_name).first()
+        if not doctor:
+            # 如果数据库中没有匹配的医生记录，重定向到医生登录页面
+            return redirect('/doctorlogin/')
+
         try:
             register_list = doctor.register_set.order_by('consultation_hours').filter(status='已支付，未检查').all()
         except Exception as e:
             print(e)
             register_list = []
 
-        # print(register_list)
         return render(request, 'doctorshowregistration.html',
                       {'register_list': register_list, 'doctor_image': doctor.img})
 
