@@ -104,10 +104,18 @@ class PatientRegisterView(View):
 # 05患者界面
 class PatientCenterView(View):
     def get(self, request):
-        patient = request.session.get('patient')
-        patient = Patient.objects.filter(name=patient).first()
-        register_list = Register.objects.filter(patient_id=patient.id)
-        return render(request, 'patientcenter.html', {'patient_name': patient.name, 'register_list': register_list})
+        # 获取 session 中的手机号
+        phone = request.session.get('patient_phone', '')
+        if not phone:
+            return redirect('/patientlogin/')  # 如果患者未登录，重定向到登录页面
+        # 根据手机号查询患者信息
+        patient = Patient.objects.filter(phone=phone).first()
+        print(f"Patient: {patient}")  # 添加调试信息
+        if patient is None:
+            # 处理患者信息不存在的情况
+            return redirect('/patientlogin/')
+        patient_name = patient.name
+        return render(request, 'patientcenter.html', {'patient_name': patient_name})
 
 
 # 06选择科室
@@ -324,12 +332,15 @@ class PatientUpdateInfoView(View):
         except Patient.DoesNotExist:
             return redirect('/patientlogin/')  # 如果患者不存在，重定向到登录页面
 
-
         phone = request.POST.get('phone', '')
         password = request.POST.get('password', '')
         name = request.POST.get('name', '')
         sex = request.POST.get('sex', '')
         age = request.POST.get('age', '')
+
+        # 检查所有字段是否为空
+        if not phone or not name or not sex or not age:
+            return render(request, 'patientupdateinfo.html', {'patient': patient, 'error': '请填写所有必填字段'})
 
         # 验证手机号格式
         phoneRegex = re.compile(r'^1[3-9]\d{9}$')
@@ -352,6 +363,9 @@ class PatientUpdateInfoView(View):
         patient.sex = sex
         patient.age = age
         patient.save()
+
+        # 更新 session 中的手机号
+        request.session['patient_phone'] = phone
 
         return redirect('/patientcenter/')
 
