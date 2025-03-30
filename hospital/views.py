@@ -324,6 +324,7 @@ class PatientUpdateInfoView(View):
         except Patient.DoesNotExist:
             return redirect('/patientlogin/')  # 如果患者不存在，重定向到登录页面
 
+
         phone = request.POST.get('phone', '')
         password = request.POST.get('password', '')
         name = request.POST.get('name', '')
