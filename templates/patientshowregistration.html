@@ -30,8 +30,9 @@
         {% for register in register_list %}
         {% if register.status == '已检查' %}
         <div class="div2">
-            <p class="input_box">患者姓名:  {{ register.patient_name }}</p>
-            <p class="input_box">医生姓名:  {{ register.doctor_name }}</p>
+            <!-- 修改为正确的字段 -->
+            <p class="input_box">患者姓名:  {{ register.patient }}</p>
+            <p class="input_box">医生姓名:  {{ register.doctor }}</p>
             <p class="input_box">挂号时间:  {{ register.registration_time }}</p>
             <p class="input_box">就诊时间:  {{ register.consultation_hours }}</p>
             <p class="input_box">就诊地址:  {{ register.address }}</p>
@@ -42,4 +43,5 @@
         {% endfor %}
     </div>
 </body>
+
 </html>

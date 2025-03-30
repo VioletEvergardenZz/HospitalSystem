@@ -131,8 +131,6 @@
             <p class="input_box">挂号时间:  {{ register.registration_time }}</p>
             <p class="input_box">就诊时间:  {{ register.consultation_hours }}</p>
             <p class="input_box">就诊地址:  {{ register.address }}</p>
-            <!-- 这里原代码有重复的就诊地址，已保留但建议确认是否有误 -->
-            <p class="input_box">就诊地址:  {{ register.address }}</p>
             <p class="input_box">病情概述:  {{ register.illness }}</p>
             <p class="input_box">挂号状态:  <span class="status">{{ register.status }}</span></p>
             <input class="input_box" type="text" name="register_id" value="{{ register.id }} " style="display: none;" />
