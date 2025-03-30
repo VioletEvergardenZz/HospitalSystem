@@ -29,6 +29,8 @@ class PatientLoginView(View):
         if patient_list:
             request.session.clear()
             request.session['patient'] = patient_list[0].name
+            # 存入手机号到 session
+            request.session['patient_phone'] = phone
             return HttpResponseRedirect("/patientcenter/")
         else:
             error = "账号或密码错误"
@@ -307,9 +309,12 @@ class DoctorShowRegistrationView(View):
 # 患者信息修改
 class PatientUpdateInfoView(View):
     def get(self, request):
-        patient = Patient.objects.filter(name=request.session.get('patient', '')).first()
-        if not patient:
+        # 获取 session 中的手机号
+        phone = request.session.get('patient_phone', '')
+        if not phone:
             return redirect('/patientlogin/')  # 如果患者未登录，重定向到登录页面
+        # 根据手机号查询患者信息
+        patient = Patient.objects.filter(phone=phone).first()
         return render(request, 'patientupdateinfo.html', {'patient': patient})
 
     def post(self, request):
