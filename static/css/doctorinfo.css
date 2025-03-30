@@ -1,0 +1,105 @@
+/* 使用引入的现代字体 */
+body {
+    font-family: 'Poppins', Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+.main-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 70px;
+    position: relative;
+}
+
+.back-link {
+    display: inline-block;
+    background-color: #007BFF;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+    text-align: center;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    /* 添加阴影效果 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.back-link:hover {
+    background-color: #0056b3;
+    /* 鼠标悬停时添加缩放效果 */
+    transform: scale(1.05);
+}
+
+.page-title {
+    text-align: center;
+    margin-bottom: 20px;
+    /* 调整字体大小 */
+    font-size: 2.5rem;
+    /* 调整颜色与背景类似 */
+    color: #666;
+    padding-bottom: 10px;
+    background: none;
+    -webkit-background-clip: initial;
+    -webkit-text-fill-color: initial;
+}
+
+.service-cards {
+    display: flex;
+    justify-content: center;
+}
+
+.service-card {
+    background: #ffffff;
+    border-radius: 1.2rem;
+    padding: 2.5rem;
+    text-align: left;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e0e0e0;
+    width: 80%;
+    /* 添加过渡效果 */
+    transition: transform 0.3s ease;
+}
+
+.service-card:hover {
+    /* 鼠标悬停时添加缩放效果 */
+    transform: scale(1.02);
+}
+
+.service-card p {
+    margin: 8px 0;
+    color: #666;
+}
+
+.user-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.user-info a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #333;
+}
+
+.user-info a span.emoji {
+    margin-left: 5px;
+}
+
+.user-info a:last-child {
+    color: #dc3545;
+}
+
+.user-info a:last-child:hover {
+    text-decoration: underline;
+}

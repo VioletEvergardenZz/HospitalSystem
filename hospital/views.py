@@ -430,3 +430,12 @@ class DoctorViewPatientEvaluationsView(View):
         doctor = Doctor.objects.filter(name=doctor_name).first()
         evaluations = DoctorEvaluation.objects.filter(doctor=doctor)
         return render(request, 'doctor_view_patient_evaluations.html', {'evaluations': evaluations})
+
+# 医生个人信息的展示
+class DoctorInfoView(View):
+    def get(self, request):
+        doctor_name = request.session.get('doctor', '')
+        doctor = Doctor.objects.filter(name=doctor_name).first()
+        if doctor:
+            return render(request, 'doctorinfo.html', {'doctor': doctor})
+        return redirect('/doctorlogin/')

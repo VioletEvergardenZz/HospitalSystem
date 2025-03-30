@@ -1,0 +1,41 @@
+<!-- HospitalSystem/templates/doctorinfo.html -->
+<!DOCTYPE html>
+{% load static %}
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>医生个人信息</title>
+    <!-- 引入 Google Fonts 中的现代字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- 引入 Font Awesome 图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/doctorcenter.css' %}">
+    <link rel="stylesheet" href="{% static 'css/doctorinfo.css' %}">
+</head>
+
+<body>
+    <div class="main-container">
+        <header class="page-title">
+            <h1>医生个人信息</h1>
+        </header>
+        <div class="service-cards">
+            <article class="service-card">
+                <p><i class="fa-solid fa-user"></i> 姓名: {{ doctor.name }}</p>
+                <p><i class="fa-solid fa-phone"></i> 电话: {{ doctor.phone }}</p>
+                <p><i class="fa-solid fa-venus-mars"></i> 性别: {{ doctor.sex }}</p>
+                <p><i class="fa-solid fa-cake-candles"></i> 年龄: {{ doctor.age }}</p>
+                <p><i class="fa-solid fa-briefcase"></i> 职位等级: {{ doctor.level }}</p>
+                <p><i class="fa-solid fa-file-lines"></i> 详细描述: {{ doctor.description }}</p>
+                <p><i class="fa-solid fa-coins"></i> 挂号价格: {{ doctor.registration_price }} 元</p>
+                <p><i class="fa-solid fa-building"></i> 科室: {{ doctor.department.name }}</p>
+            </article>
+        </div>
+        <a href="/doctorcenter/" class="back-link">
+            <i class="fa-solid fa-arrow-left"></i> 返回医生中心
+        </a>
+    </div>
+</body>
+
+</html>
