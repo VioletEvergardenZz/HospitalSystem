@@ -318,9 +318,12 @@ class PatientUpdateInfoView(View):
         return render(request, 'patientupdateinfo.html', {'patient': patient})
 
     def post(self, request):
-        patient = Patient.objects.filter(name=request.session.get('patient', '')).first()
-        if not patient:
-            return redirect('/patientlogin/')  # 如果患者未登录，重定向到登录页面
+        patient_id = request.POST.get('patient_id')
+        try:
+            patient = Patient.objects.get(id=patient_id)
+        except Patient.DoesNotExist:
+            return redirect('/patientlogin/')  # 如果患者不存在，重定向到登录页面
+
         phone = request.POST.get('phone', '')
         password = request.POST.get('password', '')
         name = request.POST.get('name', '')
