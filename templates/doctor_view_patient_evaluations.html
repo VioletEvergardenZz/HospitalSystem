@@ -10,10 +10,15 @@
     <link rel="stylesheet" href="{% static 'css/patientcenter.css' %}">
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f8f9fa;
+            font-family: 'Poppins', sans-serif;
+            /* 修改背景颜色为和 doctorcenter 相同的深绿色渐变 */
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
             margin: 0;
             padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
         }
 
        .main-container {
