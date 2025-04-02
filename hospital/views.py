@@ -210,7 +210,8 @@ class ConfirmRegistrationView(View):
         out_trade_num = uuid.uuid4().hex
         payway = '支付宝'
         status = '已支付，未检查'
-        register = Register.objects.filter(consultation_hours=consultation_hours, patient_id=patient_id)
+        # 只检查状态为 '已支付，未检查' 的预约
+        register = Register.objects.filter(consultation_hours=consultation_hours, patient_id=patient_id, status='已支付，未检查')
         if register:
             return render(request, 'confirmregistration.html', {'message': "支付失败,您已经预约了此时间段！"})
         else:
