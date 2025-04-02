@@ -10,22 +10,26 @@
 
 <body>
     <div class="form-container">
-        <form method="POST" action="/confirmregistration/">
-            <h1 class="form-title">挂号信息</h1>
+        {% if message %}
             <h2 class="form-message">{{ message }}</h2>
-            {% csrf_token %}
-            <input class="form-input" type="text" name="patient_name" value="{{ patient_name }}" placeholder="患者姓名">
-            <input class="form-input" type="text" name="doctor_name" value="{{ doctor_name }}" readonly unselectable="on">
-            <input class="form-input" type="text" name="registration_time" value="{{ registration_time }}" readonly unselectable="on">
-            <input class="form-input" type="text" name="consultation_hours" value="{{ consultation_hours }}" readonly unselectable="on">
-            <input class="form-input" type="text" name="illness" value="" placeholder="病情概要">
-            <input class="form-input" type="text" name="address" value="{{ address }}" readonly unselectable="on">
-            <input class="form-input" type="text" name="registration_price" value="{{ registration_price }}" readonly unselectable="on">
-            <input class="form-input" type="text" name="doctor_id" value="{{ doctor_id }}" style="display: none;">
-            <input class="form-input" type="text" name="patient_id" value="{{ patient_id }}" style="display: none;">
-            <input class="form-button" type="submit" value="确认并支付">
             <a class="form-link" href="/patientcenter/">返回</a>
-        </form>
+        {% else %}
+            <form method="POST" action="/confirmregistration/">
+                <h1 class="form-title">挂号信息</h1>
+                {% csrf_token %}
+                <input class="form-input" type="text" name="patient_name" value="{{ patient_name }}" placeholder="患者姓名">
+                <input class="form-input" type="text" name="doctor_name" value="{{ doctor_name }}" readonly unselectable="on">
+                <input class="form-input" type="text" name="registration_time" value="{{ registration_time }}" readonly unselectable="on">
+                <input class="form-input" type="text" name="consultation_hours" value="{{ consultation_hours }}" readonly unselectable="on">
+                <input class="form-input" type="text" name="illness" value="" placeholder="病情概要">
+                <input class="form-input" type="text" name="address" value="{{ address }}" readonly unselectable="on">
+                <input class="form-input" type="text" name="registration_price" value="{{ registration_price }}" readonly unselectable="on">
+                <input class="form-input" type="text" name="doctor_id" value="{{ doctor_id }}" style="display: none;">
+                <input class="form-input" type="text" name="patient_id" value="{{ patient_id }}" style="display: none;">
+                <input class="form-button" type="submit" value="确认并支付">
+                <a class="form-link" href="/patientcenter/">返回</a>
+            </form>
+        {% endif %}
     </div>
 </body>
 
