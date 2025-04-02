@@ -27,4 +27,7 @@ urlpatterns = [
 
     path('doctor_view_patient_evaluations/', DoctorViewPatientEvaluationsView.as_view()),
     path('doctorinfo/', DoctorInfoView.as_view(), name='doctorinfo'),
+
+    path('patientcancelregistration/', PatientCancelRegistrationView.as_view(), name='patient_cancel_registration'),
+    path('patientcancelregistration/<int:register_id>/', PatientCancelRegistrationView.as_view(), name='patient_cancel_registration_process'),
 ]

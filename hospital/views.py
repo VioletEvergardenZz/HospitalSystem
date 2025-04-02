@@ -446,3 +446,48 @@ class DoctorInfoView(View):
         if doctor:
             return render(request, 'doctorinfo.html', {'doctor': doctor})
         return redirect('/doctorlogin/')
+
+# 显示已预约信息和处理取消预约请求
+class PatientCancelRegistrationView(View):
+    def get(self, request):
+        # 获取 session 中的手机号
+        phone = request.session.get('patient_phone', '')
+        if not phone:
+            return redirect('/patientlogin/')  # 如果患者未登录，重定向到登录页面
+        # 根据手机号查询患者信息
+        patient = Patient.objects.filter(phone=phone).first()
+        if patient is None:
+            # 处理患者信息不存在的情况
+            return redirect('/patientlogin/')
+        try:
+            register_list = patient.register_set.order_by('consultation_hours').filter(status='已支付，未检查').all()
+        except Exception as e:
+            print(e)
+            register_list = []
+        return render(request, 'patientcancelregistration.html', {'register_list': register_list})
+
+    def post(self, request, register_id):
+        register = Register.objects.get(id=register_id)
+        register.status = '已取消'
+        register.save()
+        consultation_hours = str(register.consultation_hours)[11:13]
+        doctor = register.doctor
+        time_number = TimeNumber.objects.filter(doctor_id=doctor.id).first()
+        if consultation_hours == '08':
+            time_number.eight = time_number.eight + 1
+        elif consultation_hours == '09':
+            time_number.nine = time_number.nine + 1
+        elif consultation_hours == '10':
+            time_number.ten = time_number.ten + 1
+        elif consultation_hours == '11':
+            time_number.eleven = time_number.eleven + 1
+        elif consultation_hours == '14':
+            time_number.fourteen = time_number.fourteen + 1
+        elif consultation_hours == '15':
+            time_number.fifteen = time_number.fifteen + 1
+        elif consultation_hours == '16':
+            time_number.sixteen = time_number.sixteen + 1
+        elif consultation_hours == '17':
+            time_number.seventeen = time_number.seventeen + 1
+        time_number.save()
+        return redirect('/patientcancelregistration/')
