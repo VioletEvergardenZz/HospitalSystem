@@ -53,6 +53,12 @@ class Doctor(models.Model):
     def __str__(self):
         return self.name
 
+    def save(self, *args, **kwargs):
+        # 检查手机号是否唯一
+        if Doctor.objects.filter(phone=self.phone).exclude(pk=self.pk).exists():
+            raise ValidationError("该手机号码已被注册，请使用其他号码。")
+        super().save(*args, **kwargs)
+
 
 # 预约时间表
 class TimeNumber(models.Model):
