@@ -17,7 +17,7 @@ class DepartmentAdmin(admin.ModelAdmin):
 class PatientAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'sex', 'age', 'phone', 'password')
     search_fields = ['id', 'name', 'sex', 'age', 'phone', 'password']
-    list_filter = ('id', 'name', 'sex', 'age', 'phone', 'password')
+    list_filter = ('id', 'name', 'sex', 'age', 'phone')
     ordering = ['id']
 
 
