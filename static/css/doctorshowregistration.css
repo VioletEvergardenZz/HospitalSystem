@@ -1,76 +1,109 @@
 body {
-	background-color: #5ef17c;
-	background-repeat: no-repeat;
-	background-size: cover;
-}
-
-.login_box {
-	width: 600px;
-	background-color: #fff;
-	margin: auto;
-	margin-top: 150px;
-	border-radius: 5px;
-	overflow: hidden;
-
-}
-
-.title {
-	text-align: center;
-	font-size: 28px;
-	color: #000;
-	margin-top: 40px;
-	margin-bottom: 10px;
-	letter-spacing: 3px;
-	font-family: sans-serif;
-	
-}
-
-.input_box {
-	width: 300px;
-	height: 30px;
-	padding-left: 10px;
-	margin-top: 10px;
-	margin-left: 50px;
-}
-
-.button_box {
-	width: 120px;
-	height: 35px;
-	margin-top: 50px;
-	margin-left: 140px;
-	border-radius: 5px;
-	background-color: #64a9d9;
-	cursor: pointer;
-	color: #fff;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+    margin: 0;
+    padding: 2rem;
+    min-height: 100vh;
+    color: var(--text-primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .logo_box {
-	position: absolute;
-	background-color: #fff;
-	width: 100px;
-	height: 100px;
-	border-radius: 100px;
-	top: 100px;
-	left: 0;
-	right: 0;
-	margin: auto;
-	border: solid 5px #A68364;
+	margin-bottom: 30px;
 	text-align: center;
 }
 
 .logo_img {
-	height: 101px;
-	width: 101px;
-	border-radius: 100px;
+	width: 120px;
+	height: 120px;
+	border-radius: 50%;
+	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+	object-fit: cover;
+	border: 3px solid #fff;
+}
 
+.login_box {
+	background-color: rgba(255, 255, 255, 0.9);
+	border-radius: 12px;
+	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+	padding: 40px;
+	width: 80%;
+	max-width: 700px;
+	backdrop-filter: blur(5px);
 }
-.form1{
-	border: 2px solid #808080;
-	width: 555px;
-	height: 450px;
-	margin: 20px;
-	margin-top: 30px;
+
+a {
+	display: inline-block;
+	margin-bottom: 20px;
+	color: #1890ff;
+	text-decoration: none;
+	font-weight: 600;
+	transition: color 0.3s ease;
+	font-size: 18px;
 }
-button:hover{
+
+a:hover {
+	color: #40a9ff;
+}
+
+.title {
+	color: #262626;
+	font-size: 32px;
+	margin-bottom: 30px;
+	text-align: center;
+	font-weight: 600;
+	text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+	/* 添加阴影效果，增强层次感 */
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	padding: 10px;
+	border-radius: 8px;
+}
+
+.form1 {
+	background-color: #fafafa;
+	border: 1px solid #e8e8e8;
+	border-radius: 8px;
+	padding: 20px;
+	margin-bottom: 20px;
+	transition: all 0.3s ease;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+	/* 添加内边距和阴影效果，增强层次感 */
+	padding: 25px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form1:hover {
+	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+	transform: translateY(-2px);
+}
+
+.input_box {
+	margin: 10px 0;
+	color: #595959;
+	font-size: 16px;
+}
+
+.input_box span {
+	font-weight: 600;
+	color: #f5222d;
+}
+
+input[type="submit"] {
 	background-color: #008000;
+	color: white;
+	border: none;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+	padding: 10px 20px;
+	border-radius: 5px;
+	font-size: 16px;
+	/* 使按钮居中 */
+	display: block;
+	margin: 0 auto;
+}
+
+input[type="submit"]:hover {
+	background-color: #006400;
 }
