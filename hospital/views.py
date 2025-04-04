@@ -244,9 +244,23 @@ class ConfirmRegistrationView(View):
 # 09患者查看预约信息
 class PatientShowRegistrationView(View):
     def get(self, request):
-        patient = Patient.objects.filter(name=request.session.get('patient', '')).first()
-        register_list = Register.objects.filter(patient_id=patient.id)
-        return render(request, 'patientshowregistration.html', {'register_list': register_list})
+        patient = request.session.get('patient')
+        if not patient:
+            return redirect('/patientlogin/')
+
+        patient = Patient.objects.filter(name=patient).first()
+        if not patient:
+            return redirect('/patientlogin/')
+
+        register_list = patient.register_set.all()
+
+        # 检查是否有预约记录
+        if not register_list:
+            message = "暂无预约记录。"
+        else:
+            message = ""
+
+        return render(request, 'patientshowregistration.html', {'register_list': register_list, 'message': message})
 
 
 # 10交通指引界面
@@ -268,12 +282,10 @@ class DoctorShowRegistrationView(View):
     def get(self, request):
         doctor_name = request.session.get('doctor')
         if not doctor_name:
-            # 如果会话中没有医生姓名，重定向到医生登录页面
             return redirect('/doctorlogin/')
 
         doctor = Doctor.objects.filter(name=doctor_name).first()
         if not doctor:
-            # 如果数据库中没有匹配的医生记录，重定向到医生登录页面
             return redirect('/doctorlogin/')
 
         try:
@@ -282,8 +294,14 @@ class DoctorShowRegistrationView(View):
             print(e)
             register_list = []
 
+        # 检查是否有预约
+        if not register_list:
+            message = "暂无患者预约信息。"
+        else:
+            message = ""
+
         return render(request, 'doctorshowregistration.html',
-                      {'register_list': register_list, 'doctor_image': doctor.img})
+                      {'register_list': register_list, 'doctor_image': doctor.img, 'message': message})
 
     # 医生确认检查完毕
     def post(self, request):
@@ -420,24 +438,52 @@ class EvaluateDoctorView(View):
         messages.success(request, '评价提交成功！')
         return redirect('patientcenter')
 
+# 患者评价记录
 class PatientEvaluationRecordsView(View):
     def get(self, request):
         patient = request.session.get('patient')
+        if not patient:
+            return redirect('/patientlogin/')
+
         patient = Patient.objects.filter(name=patient).first()
+        if not patient:
+            return redirect('/patientlogin/')
+
         register_list = Register.objects.filter(patient=patient, status='已检查')
+
+        # 检查是否有评价信息
+        if not register_list:
+            message = "暂无医生评价信息。"
+        else:
+            message = ""
+
         for register in register_list:
-            # 使用 filter() 方法查询评价记录
             evaluation_exists = DoctorEvaluation.objects.filter(registration=register).exists()
             register.has_evaluation = evaluation_exists
-        return render(request, 'patient_evaluation_records.html', {'register_list': register_list})
+
+        return render(request, 'patient_evaluation_records.html', {'register_list': register_list, 'message': message})
+
 
 # 医生查看患者评价
 class DoctorViewPatientEvaluationsView(View):
     def get(self, request):
         doctor_name = request.session.get('doctor')
+        if not doctor_name:
+            return redirect('/doctorlogin/')
+
         doctor = Doctor.objects.filter(name=doctor_name).first()
-        evaluations = DoctorEvaluation.objects.filter(doctor=doctor)
-        return render(request, 'doctor_view_patient_evaluations.html', {'evaluations': evaluations})
+        if not doctor:
+            return redirect('/doctorlogin/')
+
+        evaluations = DoctorEvaluation.objects.filter(registration__doctor=doctor)
+
+        # 检查是否有评价记录
+        if not evaluations:
+            message = "暂无患者评价记录。"
+        else:
+            message = ""
+
+        return render(request, 'doctor_view_patient_evaluations.html', {'evaluations': evaluations, 'message': message})
 
 # 医生个人信息的展示
 class DoctorInfoView(View):
@@ -451,21 +497,24 @@ class DoctorInfoView(View):
 # 显示已预约信息和处理取消预约请求
 class PatientCancelRegistrationView(View):
     def get(self, request):
-        # 获取 session 中的手机号
         phone = request.session.get('patient_phone', '')
         if not phone:
-            return redirect('/patientlogin/')  # 如果患者未登录，重定向到登录页面
-        # 根据手机号查询患者信息
+            return redirect('/patientlogin/')
+
         patient = Patient.objects.filter(phone=phone).first()
         if patient is None:
-            # 处理患者信息不存在的情况
             return redirect('/patientlogin/')
-        try:
-            register_list = patient.register_set.order_by('consultation_hours').filter(status='已支付，未检查').all()
-        except Exception as e:
-            print(e)
-            register_list = []
-        return render(request, 'patientcancelregistration.html', {'register_list': register_list})
+
+        register_list = patient.register_set.order_by('consultation_hours').filter(status='已支付，未检查').all()
+
+        # 检查是否有可取消的预约
+        if not register_list:
+            message = "暂无可取消的预约信息。"
+        else:
+            message = ""
+
+        return render(request, 'patientcancelregistration.html', {'register_list': register_list, 'message': message})
+
 
     def post(self, request, register_id):
         register = Register.objects.get(id=register_id)

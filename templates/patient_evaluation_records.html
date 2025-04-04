@@ -95,7 +95,10 @@
 
 <body>
     <div class="main-container">
-        <h2>我的已检查预约记录</h2>
+        <h2>医生评价记录</h2>
+        {% if message %}
+            <p class="message">{{ message }}</p>
+        {% endif %}
         <ul>
             {% for register in register_list %}
             <li>

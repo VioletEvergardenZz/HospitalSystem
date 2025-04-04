@@ -123,6 +123,9 @@
     <div class="login_box">
         <a href="/doctorcenter/" class="return-link">返回页面</a>
         <h1 class="title"> 我的患者</h1>
+        {% if message %}
+            <p class="message">{{ message }}</p>
+        {% endif %}
         {% for register in register_list %}
         <form class="form1" method="POST" action="/doctorshowregistration/">
             {% csrf_token %}

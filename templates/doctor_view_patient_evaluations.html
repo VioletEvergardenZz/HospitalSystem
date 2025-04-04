@@ -14,6 +14,9 @@
 <body>
     <div class="main-container">
         <h2>患者评价记录</h2>
+        {% if message %}
+            <p class="message">{{ message }}</p>
+        {% endif %}
         <ul>
             {% for evaluation in evaluations %}
             <li>

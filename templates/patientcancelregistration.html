@@ -14,6 +14,9 @@
     <div class="login_box">
         <a href="/patientcenter/">返回患者中心</a>
         <h1 class="title">取消预约</h1>
+        {% if message %}
+            <p class="message">{{ message }}</p>
+        {% endif %}
         {% for register in register_list %}
         {% if register.status == '已支付，未检查' %}
         <div class="div1">
