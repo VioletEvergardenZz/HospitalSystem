@@ -20,7 +20,7 @@
         <ul>
             {% for register in register_list %}
             <li>
-                <span>医生: {{ register.doctor.name }}，预约时间: {{ register.consultation_hours }}，状态: {{ register.status }}</span>
+                <span>医生: {{ register.doctor.name }}，预约时间: {{ register.consultation_hours|date:"Y.m.d H:i" }}，状态: {{ register.status }}</span>
                 {% if register.status == '已检查' %}
                     {% if register.has_evaluation %}
                         <span class="evaluated">已评价</span>

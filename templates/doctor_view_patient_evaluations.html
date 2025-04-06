@@ -24,7 +24,7 @@
                 <p><strong>服务态度评分:</strong> {{ evaluation.service_attitude }}</p>
                 <p><strong>专业水平评分:</strong> {{ evaluation.professional_level }}</p>
                 <p><strong>评价内容:</strong> {{ evaluation.comment }}</p>
-                <p><strong>评价时间:</strong> {{ evaluation.evaluation_time }}</p>
+                <p><strong>评价时间:</strong> {{ evaluation.evaluation_time|date:"Y.m.d H:i" }}</p>
             </li>
             {% endfor %}
         </ul>

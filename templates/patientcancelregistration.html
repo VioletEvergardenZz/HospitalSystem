@@ -23,8 +23,8 @@
         <div class="div1">
             <p class="input_box">患者姓名:  {{ register.patient }}</p>
             <p class="input_box">医生姓名:  {{ register.doctor }}</p>
-            <p class="input_box">挂号时间:  {{ register.registration_time }}</p>
-            <p class="input_box">就诊时间:  {{ register.consultation_hours }}</p>
+            <p class="input_box">挂号时间:  {{ register.registration_time|date:"Y.m.d H:i" }}</p>
+            <p class="input_box">就诊时间:  {{ register.consultation_hours|date:"Y.m.d H:i" }}</p>
             <p class="input_box">就诊地址:  {{ register.address }}</p>
             <p class="input_box">病情概述:  {{ register.illness }}</p>
             <p class="input_box">挂号状态:  <span>{{ register.status }}</span></p>
