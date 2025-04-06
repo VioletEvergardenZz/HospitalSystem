@@ -46,7 +46,6 @@ class DoctorLoginView(View):
         phone = request.POST.get('phone', '')
         password = request.POST.get('password', '')
 
-        # 检查是否输入账号密码
         if not phone or not password:
             error = "请输入账号和密码"
             return render(request, 'doctorlogin.html', {'error': error})
@@ -55,7 +54,8 @@ class DoctorLoginView(View):
         if doctor_list:
             request.session['doctor'] = doctor_list[0].name
             request.session['doctor_image'] = str(doctor_list[0].img)
-            return HttpResponseRedirect("/doctorcenter/")
+            # 修改重定向路径到医生中心
+            return redirect('/doctorcenter/')  # 重点修改这里
         else:
             error = "账号或密码错误"
             return render(request, 'doctorlogin.html', {'error': error})
