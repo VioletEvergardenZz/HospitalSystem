@@ -1,0 +1,86 @@
+/* 整体容器样式 */
+.health-tips-container {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 60px; /* 增大内边距，让容器更大 */
+    max-width: 1400px; /* 增大最大宽度 */
+    margin: 0 auto;
+}
+
+/* 页面标题样式 */
+.page-title h1 {
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 3em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 服务卡片样式 */
+.service-cards {
+    display: flex;
+    flex-wrap: nowrap; /* 确保卡片不会换行 */
+    gap: 20px; /* 减小卡片之间的间距 */
+    justify-content: center;
+}
+
+.service-card {
+    background-color: #ecf0f1;
+    border: none;
+    border-radius: 15px;
+    padding: 20px; /* 减小内边距 */
+    width: calc(33.333% - 20px); /* 减去间距 */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    flex-shrink: 0; /* 防止卡片被压缩 */
+}
+
+.service-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.service-card h2 {
+    color: #3498db;
+    margin-bottom: 15px; /* 减小标题下方的间距 */
+    font-size: 1.5em; /* 减小标题字体大小 */
+}
+
+.service-card ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.service-card ul li {
+    margin-bottom: 10px; /* 减小列表项之间的间距 */
+    line-height: 1.6; /* 减小行高 */
+    position: relative;
+    padding-left: 20px; /* 减小左侧图标间距 */
+    font-size: 0.9em; /* 减小列表项字体大小 */
+}
+
+.service-card ul li::before {
+    content: '✓';
+    color: #2ecc71;
+    position: absolute;
+    left: 0;
+    top: 2px;
+}
+
+/* 返回按钮样式 */
+.back-link {
+    position: fixed;
+    bottom: 7px; /* 进一步增大底部位置的值，使按钮向下移动 */
+    right: 20px; /* 调整按钮的右侧位置 */
+    background-color: #3498db;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 8px;
+    text-decoration: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.back-link:hover {
+    background-color: #2980b9;
+    transform: scale(1.05);
+}

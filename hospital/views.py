@@ -263,13 +263,7 @@ class PatientShowRegistrationView(View):
         return render(request, 'patientshowregistration.html', {'register_list': register_list, 'message': message})
 
 
-# 10交通指引界面
-class TrafficView(View):
-    def get(self, request):
-        return render(request, 'traffic.html')
-
-
-# 11医生界面
+# 10医生界面
 class DoctorCenterView(View):
     def get(self, request):
         doctor = request.session.get('doctor', '')
@@ -277,7 +271,7 @@ class DoctorCenterView(View):
         return render(request, 'doctorcenter.html', {'doctor_name': doctor, 'doctor_image': doctor_image})
 
 
-# 12医生展示挂号信息
+# 11医生展示挂号信息
 class DoctorShowRegistrationView(View):
     def get(self, request):
         doctor_name = request.session.get('doctor')
@@ -541,3 +535,8 @@ class PatientCancelRegistrationView(View):
             time_number.seventeen = time_number.seventeen + 1
         time_number.save()
         return redirect('/patientcancelregistration/')
+
+# 健康小贴士视图
+class HealthTipsView(View):
+    def get(self, request):
+        return render(request, 'healthtips.html')

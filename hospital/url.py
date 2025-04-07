@@ -16,7 +16,7 @@ urlpatterns = [
          ConfirmRegistrationView.as_view()),
     path('confirmregistration/', ConfirmRegistrationView.as_view()),
     path('patientshowregistration/', PatientShowRegistrationView.as_view()),
-    path('traffic/', TrafficView.as_view()),
+    path('healthtips/', HealthTipsView.as_view(), name='healthtips'),
 
     path('doctorcenter/', DoctorCenterView.as_view(), name='doctorcenter'),  # 添加 name 参数
     path('doctorshowregistration/', DoctorShowRegistrationView.as_view()),

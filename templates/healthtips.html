@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>健康小贴士</title>
+    <link rel="stylesheet" href="{% static 'css/patientcenter.css' %}">
+    <link rel="stylesheet" href="{% static 'css/healthtips.css' %}">
+</head>
+<body>
+    <div class="main-container health-tips-container">
+        <header class="page-title">
+            <h1>健康生活小贴士</h1>
+        </header>
+
+        <div class="service-cards">
+            <article class="service-card">
+                <h2>饮食小贴士</h2>
+                <ul>
+                    <li>每天保证摄入足够的蔬菜和水果，它们富含维生素和矿物质，有助于提高免疫力。</li>
+                    <li>控制盐和糖的摄入，过多的盐会增加高血压的风险，过多的糖会导致肥胖和糖尿病。</li>
+                    <li>选择优质蛋白质，如鱼、鸡肉、豆类和坚果，它们是身体修复和生长的重要营养素。</li>
+                </ul>
+            </article>
+            <article class="service-card">
+                <h2>运动小贴士</h2>
+                <ul>
+                    <li>每周至少进行 150 分钟的中等强度有氧运动，如快走、跑步、游泳等。</li>
+                    <li>加入力量训练，如举重、俯卧撑和仰卧起坐，有助于增强肌肉和骨骼。</li>
+                    <li>避免长时间久坐，每隔一段时间起身活动一下，伸展身体。</li>
+                </ul>
+            </article>
+            <article class="service-card">
+                <h2>睡眠小贴士</h2>
+                <ul>
+                    <li>保持规律的睡眠时间，每天尽量在相同的时间上床睡觉和起床。</li>
+                    <li>创造一个安静、舒适、黑暗和凉爽的睡眠环境。</li>
+                    <li>避免在晚上摄入咖啡因和大量液体，以免影响睡眠质量。</li>
+                </ul>
+            </article>
+        </div>
+        <a href="/patientcenter/" class="back-link">返回患者中心</a>
+    </div>
+</body>
+</html>
