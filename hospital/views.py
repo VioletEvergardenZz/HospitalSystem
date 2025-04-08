@@ -137,9 +137,9 @@ class ChooseDoctorAndTimeView(View):
             time_number = TimeNumber.objects.filter(doctor_id=doctor_id).first()
             doctor_time_number_list.append([doctor, time_number])
 
-        # 生成最近 15 天的日期列表
+        # 生成最近 7 天的日期列表
         date_list = []
-        for i in range(15):
+        for i in range(7):
             date = (datetime.datetime.now() + datetime.timedelta(days=i)).strftime("%Y-%m-%d")
             date_list.append(date)
 
