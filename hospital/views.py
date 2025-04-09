@@ -137,14 +137,8 @@ class ChooseDoctorAndTimeView(View):
             time_number = TimeNumber.objects.filter(doctor_id=doctor_id).first()
             doctor_time_number_list.append([doctor, time_number])
 
-        # 生成最近 7 天的日期列表
-        date_list = []
-        for i in range(7):
-            date = (datetime.datetime.now() + datetime.timedelta(days=i)).strftime("%Y-%m-%d")
-            date_list.append(date)
-
-        # 获取患者选择的日期，如果没有选择则默认为今天
-        selected_date = request.GET.get('date', datetime.datetime.now().strftime("%Y-%m-%d"))
+        # 生成明天的日期
+        selected_date = (datetime.datetime.now() + datetime.timedelta(days=1)).strftime("%Y-%m-%d")
 
         # 定义时间列表
         time_list = ['08', '09', '10', '11', '14', '15', '16', '17']
@@ -154,7 +148,7 @@ class ChooseDoctorAndTimeView(View):
 
         return render(request, 'choosedoctorandtime.html',
                       {'department_name': department_name, 'doctor_time_number_list': doctor_time_number_list,
-                       'department_id': department_id, 'date_list': date_list, 'selected_date': selected_date,
+                       'department_id': department_id, 'selected_date': selected_date,
                        'time_list': time_list, 'now': now})
 
 # 08确认挂号信息预约

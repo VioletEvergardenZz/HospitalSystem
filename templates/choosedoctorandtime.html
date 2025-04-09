@@ -11,13 +11,8 @@
 
 <body>
     <div class="top">
-        <h1>选择预约日期</h1>
-        <select onchange="window.location.href=this.value">
-            {% for date in date_list %}
-                <option value="?date={{ date }}" {% if date == selected_date %}selected{% endif %}>{{ date }}</option>
-            {% endfor %}
-        </select>
-        <h2>已选日期: {{ selected_date }}</h2>
+        <h1>选择医生和时间</h1>
+        <h2>预约日期: {{ selected_date }}</h2>
     </div>
     <div class="box">
         {% for doctor, number in doctor_time_number_list %}
@@ -123,7 +118,6 @@
             </div>
         {% endfor %}
     </div>
-    <!-- 修改返回按钮的逻辑 -->
     <button class="back-button" onclick="window.location.href='/choosedepartment/'">返回选择科室</button>
 </body>
 
