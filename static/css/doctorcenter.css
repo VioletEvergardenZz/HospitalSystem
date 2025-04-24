@@ -29,7 +29,7 @@ body {
     border-radius: 1.5rem;
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
     width: min(90%, 1200px);
-    padding: 3rem 2.5rem;
+    padding: 10rem 7rem;
     position: relative;
     backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.3);
