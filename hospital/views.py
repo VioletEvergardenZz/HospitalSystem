@@ -11,6 +11,7 @@ import json
 from openai import OpenAI
 import markdown
 from django.conf import settings
+import random
 
 
 # 01选择身份登录
@@ -532,3 +533,26 @@ class AIHealthPredictionView(View):
             'symptoms': symptoms,
             'patient': patient
         })
+
+#20随机饮食
+class RandomDietRecommendationView(View):
+    def get(self, request):
+        diet_options = [
+            [
+                {"type": "breakfast", "title": "早餐", "icon": "fa-coffee", "content": "燕麦粥、水煮蛋、苹果"},
+                {"type": "lunch", "title": "午餐", "icon": "fa-utensils", "content": "清蒸鱼、清炒时蔬、糙米饭"},
+                {"type": "dinner", "title": "晚餐", "icon": "fa-moon", "content": "豆腐汤、凉拌黄瓜、玉米"}
+            ],
+            [
+                {"type": "breakfast", "title": "早餐", "icon": "fa-coffee", "content": "全麦面包、牛奶、蓝莓"},
+                {"type": "lunch", "title": "午餐", "icon": "fa-utensils", "content": "番茄牛腩、炒豆角、红薯"},
+                {"type": "dinner", "title": "晚餐", "icon": "fa-moon", "content": "虾仁蒸蛋、炒菠菜、紫薯"}
+            ],
+            [
+                {"type": "breakfast", "title": "早餐", "icon": "fa-coffee", "content": "蔬菜煎饼、豆浆、橙子"},
+                {"type": "lunch", "title": "午餐", "icon": "fa-utensils", "content": "宫保鸡丁、炒西兰花、藜麦饭"},
+                {"type": "dinner", "title": "晚餐", "icon": "fa-moon", "content": "海带豆腐汤、凉拌生菜、山药"}
+            ]
+        ]
+        random_diet = random.choice(diet_options)
+        return render(request, 'random_diet_recommendation.html', {'diet_items': random_diet})

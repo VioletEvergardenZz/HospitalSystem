@@ -1,0 +1,87 @@
+<!-- HospitalSystem/templates/random_diet_recommendation.html -->
+<!DOCTYPE html>
+{% load static %}
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>随机饮食推荐</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/patientcenter.css' %}">
+    <link rel="stylesheet" href="{% static 'css/random_diet_recommendation.css' %}">
+    <!-- Tailwind 配置 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2c7aed',
+                        breakfast: '#FF9D5C',
+                        lunch: '#4A90E2',
+                        dinner: '#50C878',
+                        neutral: {
+                            100: '#F8FAFC',
+                            200: '#E2E8F0',
+                            300: '#CBD5E1',
+                            700: '#334155',
+                            900: '#1E293B'
+                        }
+                    },
+                    fontFamily: {
+                        inter: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-inter bg-neutral-100 min-h-screen">
+    <div class="max-w-4xl mx-auto px-4 py-8">
+        <!-- 页面标题 -->
+        <header class="mb-8">
+            <h1 class="text-[clamp(1.8rem,5vw,2.5rem)] font-bold text-neutral-900 flex items-center">
+                <i class="fa fa-cutlery text-primary mr-3"></i>
+                随机饮食推荐
+            </h1>
+            <p class="text-neutral-700 mt-2">根据您的健康状况，我们为您推荐以下均衡饮食方案</p>
+        </header>
+        <!-- 饮食推荐卡片 -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+            {% for meal in diet_items %}
+            <div class="bg-white rounded-xl overflow-hidden card-shadow card-hover">
+                <div class="h-2 bg-{{ meal.type }}"></div>
+                <div class="p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 rounded-full bg-{{ meal.type }}/10 flex items-center justify-center text-{{ meal.type }} text-xl">
+                            <i class="fa {{ meal.icon }}"></i>
+                        </div>
+                        <h2 class="text-xl font-bold text-neutral-900">{{ meal.title }}</h2>
+                    </div>
+                    <p class="text-neutral-700 leading-relaxed">
+                        {{ meal.content }}
+                    </p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <!-- 营养小贴士 -->
+        <div class="bg-primary/5 border border-primary/20 rounded-xl p-6 mb-10">
+            <h3 class="text-lg font-semibold text-primary flex items-center mb-3">
+                <i class="fa fa-lightbulb-o mr-2"></i>
+                营养小贴士
+            </h3>
+            <p class="text-neutral-700 leading-relaxed">
+                均衡的饮食应包含适量的蛋白质、碳水化合物、脂肪、维生素和矿物质。建议每天摄入多种颜色的蔬菜和水果，保持饮食多样性。
+            </p>
+        </div>
+        <!-- 返回按钮 -->
+        <div class="text-center">
+            <a href="/patientcenter/" class="inline-flex items-center bg-primary hover:bg-primary/90 text-white font-medium py-3 px-6 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-primary/20 transform hover:-translate-y-1">
+                <i class="fa fa-arrow-left mr-2"></i>
+                返回患者中心
+            </a>
+        </div>
+    </div>
+</body>
+</html>
