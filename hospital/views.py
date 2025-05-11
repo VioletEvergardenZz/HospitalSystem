@@ -556,3 +556,47 @@ class RandomDietRecommendationView(View):
         ]
         random_diet = random.choice(diet_options)
         return render(request, 'random_diet_recommendation.html', {'diet_items': random_diet})
+
+#21健康自测
+class HealthSelfAssessmentView(View):
+    def get(self, request):
+        # 获取 session 中的手机号
+        phone = request.session.get('patient_phone', '')
+        if not phone:
+            return redirect('/patientlogin/')  # 如果患者未登录，重定向到登录页面
+        return render(request, 'health_self_assessment.html')
+
+class HealthSelfAssessmentResultView(View):
+    def post(self, request):
+        # 获取 session 中的手机号
+        phone = request.session.get('patient_phone', '')
+        if not phone:
+            return redirect('/patientlogin/')  # 如果患者未登录，重定向到登录页面
+        question1 = request.POST.get('question1')
+        question2 = request.POST.get('question2')
+        question3 = request.POST.get('question3')
+        question4 = request.POST.get('question4')
+        question5 = request.POST.get('question5')
+        # 验证用户是否回答了所有问题
+        if not question1 or not question2 or not question3 or not question4 or not question5:
+            messages.error(request, '请回答所有问题！')
+            return redirect('health_self_assessment')
+        # 这里可以根据用户的回答进行评估，这里简单示例
+        score = 0
+        if question1 == '否':
+            score += 1
+        if question2 == '是':
+            score += 1
+        if question3 == '是':
+            score += 1
+        if question4 == '是':
+            score += 1
+        if question5 == '否':
+            score += 1
+        if score >= 4:
+            result = '你的健康状况良好，请继续保持！'
+        elif score >= 2:
+            result = '你的健康状况一般，建议调整生活习惯。'
+        else:
+            result = '你的健康状况较差，请及时关注自己的身体。'
+        return render(request, 'health_self_assessment_result.html', {'result': result})

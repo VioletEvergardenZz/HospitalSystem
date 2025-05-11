@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>健康自测</title>
+    <!-- 引入 Google Fonts 中的现代字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- 引入 Font Awesome 图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/patientcenter.css' %}">
+    <link rel="stylesheet" href="{% static 'css/health_self_assessment.css' %}">
+    <script>
+        function validateForm() {
+            const questions = ['question1', 'question2', 'question3', 'question4', 'question5'];
+            for (const question of questions) {
+                const radios = document.querySelectorAll(`input[name="${question}"]`);
+                let isChecked = false;
+                for (const radio of radios) {
+                    if (radio.checked) {
+                        isChecked = true;
+                        break;
+                    }
+                }
+                if (!isChecked) {
+                    alert('请回答所有问题！');
+                    return false;
+                }
+            }
+            return true;
+        }
+    </script>
+</head>
+
+<body>
+    <div class="main-container">
+        <header class="page-title">
+            <h1>健康自测</h1>
+        </header>
+        <form action="{% url 'health_self_assessment_result' %}" method="post" onsubmit="return validateForm();">
+            {% csrf_token %}
+            <div class="question-group">
+                <label for="question1">你最近一周是否经常感到疲劳？</label><br>
+                <input type="radio" id="question1" name="question1" value="是"> 是<br>
+                <input type="radio" id="question1" name="question1" value="否"> 否<br>
+            </div>
+            <div class="question-group">
+                <label for="question2">你每天是否能保证7小时以上的睡眠？</label><br>
+                <input type="radio" id="question2" name="question2" value="是"> 是<br>
+                <input type="radio" id="question2" name="question2" value="否"> 否<br>
+            </div>
+            <div class="question-group">
+                <label for="question3">你每周是否进行至少3次运动？</label><br>
+                <input type="radio" id="question3" name="question3" value="是"> 是<br>
+                <input type="radio" id="question3" name="question3" value="否"> 否<br>
+            </div>
+            <div class="question-group">
+                <label for="question4">你是否经常食用蔬菜和水果？</label><br>
+                <input type="radio" id="question4" name="question4" value="是"> 是<br>
+                <input type="radio" id="question4" name="question4" value="否"> 否<br>
+            </div>
+            <div class="question-group">
+                <label for="question5">你是否有吸烟的习惯？</label><br>
+                <input type="radio" id="question5" name="question5" value="是"> 是<br>
+                <input type="radio" id="question5" name="question5" value="否"> 否<br>
+            </div>
+            <div class="button-container">
+                <button type="submit">提交</button>
+                <a href="/patientcenter/" class="back-link">返回患者中心</a>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

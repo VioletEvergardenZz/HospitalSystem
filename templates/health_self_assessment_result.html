@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>健康自测结果</title>
+    <link rel="stylesheet" href="{% static 'css/patientcenter.css' %}">
+    <link rel="stylesheet" href="{% static 'css/health_self_assessment_result.css' %}">
+</head>
+
+<body>
+    <div class="main-container">
+        <header class="page-title">
+            <h1>健康自测结果</h1>
+        </header>
+
+        <p>{{ result }}</p>
+        <a href="/patientcenter/" class="back-link">返回患者中心</a>
+    </div>
+</body>
+
+</html>
