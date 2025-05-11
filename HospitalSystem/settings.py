@@ -102,3 +102,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # 主键自增
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# 添加 DeepSeek API 配置
+DEEPSEEK_API_KEY = 'sk-3f761dd3d5a540d8afd9296f6fb90609'
+DEEPSEEK_API_URL = 'https://api.deepseek.com'

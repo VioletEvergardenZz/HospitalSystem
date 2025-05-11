@@ -1,0 +1,93 @@
+/* 全局样式 */
+body {
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+/* 容器样式 */
+.container {
+    background-color: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 95%;
+    max-width: 1000px;
+}
+
+h1 {
+    color: #007BFF;
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+}
+
+form {
+    text-align: left;
+}
+
+.form-label {
+    font-weight: bold;
+}
+
+.btn-primary {
+    width: 100%;
+    padding: 12px;
+    font-size: 1.2rem;
+    margin-top: 20px;
+}
+
+.alert {
+    margin-top: 30px;
+    text-align: left;
+}
+
+.back-link {
+    margin-top: 30px;
+    display: inline-block;
+    padding: 12px 30px;
+    background-color: #007BFF;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    font-size: 1.1rem;
+}
+
+.back-link:hover {
+    background-color: #0056b3;
+}
+
+/* 富文本内容样式 */
+.formatted-content {
+    margin-top: 1.5rem;
+    padding: 1.2rem;
+    background-color: #fdfdfd;
+    border-left: 5px solid #007BFF;
+    border-radius: 8px;
+}
+
+.formatted-content h2, .formatted-content h3 {
+    margin-top: 1.2rem;
+    margin-bottom: 0.8rem;
+    color: #343a40;
+}
+
+.formatted-content p, .formatted-content li {
+    font-size: 1.05rem;
+    line-height: 1.7;
+}
+
+.formatted-content ul {
+    padding-left: 1.5rem;
+    list-style-type: disc;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+}

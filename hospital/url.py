@@ -30,4 +30,6 @@ urlpatterns = [
 
     path('patientcancelregistration/', PatientCancelRegistrationView.as_view(), name='patient_cancel_registration'),
     path('patientcancelregistration/<int:register_id>/', PatientCancelRegistrationView.as_view(), name='patient_cancel_registration_process'),
+
+    path('ai_health_prediction/', AIHealthPredictionView.as_view(), name='ai_health_prediction'),
 ]

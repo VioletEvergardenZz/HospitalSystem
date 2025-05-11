@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智能病情预诊</title>
+    <!-- 引入Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/patientcenter.css' %}">
+    <link rel="stylesheet" href="{% static 'css/ai_health_prediction.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>智能病情预诊</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="symptoms" class="form-label">请输入症状：</label>
+                <input type="text" class="form-control" id="symptoms" name="symptoms" required>
+            </div>
+            <button type="submit" class="btn btn-primary" id="submitBtn">提交</button>
+        </form>
+        {% if result %}
+            {% if result.error %}
+                <div class="alert alert-danger" role="alert">
+                    <h2>错误信息：</h2>
+                    <p>{{ result.error }}</p>
+                </div>
+            {% else %}
+                <div class="alert alert-success" role="alert">
+                    <h2>诊断结果：</h2>
+                    <div class="formatted-content">
+                        {{ result.content|safe }}
+                    </div>
+                </div>
+            {% endif %}
+        {% endif %}
+        <a href="/patientcenter/" class="back-link">返回患者中心</a>
+    </div>
+    <!-- 提交按钮加载状态脚本 -->
+    <script>
+        document.querySelector("form").addEventListener("submit", function () {
+            const btn = document.getElementById("submitBtn");
+            btn.disabled = true;
+            btn.innerText = "正在分析，请稍候...";
+        });
+    </script>
+    <!-- 引入Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

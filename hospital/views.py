@@ -6,6 +6,11 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.contrib import messages
 from .models import *
+import requests
+import json
+from openai import OpenAI
+import markdown
+from django.conf import settings
 
 
 # 01选择身份登录
@@ -470,3 +475,60 @@ class PatientCancelRegistrationView(View):
 class HealthTipsView(View):
     def get(self, request):
         return render(request, 'healthtips.html')
+
+# 19AI模块
+class AIHealthPredictionView(View):
+    def get(self, request):
+        # 获取 session 中的手机号
+        phone = request.session.get('patient_phone', '')
+        if not phone:
+            return redirect('/patientlogin/')  # 如果患者未登录，重定向到登录页面
+        # 根据手机号查询患者信息
+        patient = Patient.objects.filter(phone=phone).first()
+        return render(request, 'ai_health_prediction.html', {'result': None, 'patient': patient})
+
+    def post(self, request):
+        # 获取 session 中的手机号
+        phone = request.session.get('patient_phone', '')
+        if not phone:
+            return redirect('/patientlogin/')  # 如果患者未登录，重定向到登录页面
+        # 根据手机号查询患者信息
+        patient = Patient.objects.filter(phone=phone).first()
+
+        symptoms = request.POST.get('symptoms', '')
+        result = None
+        try:
+            # 构建请求头
+            headers = {
+                "Content-Type": "application/json",
+                "Authorization": f"Bearer {settings.DEEPSEEK_API_KEY}"
+            }
+            # 构建请求体
+            data = {
+                "model": "deepseek-chat",
+                "messages": [
+                    {"role": "system", "content": "You are a helpful assistant"},
+                    {"role": "user", "content": f"患者出现了{symptoms}的症状，请诊断可能的疾病和建议就诊科室。"}
+                ]
+            }
+            # 发起 POST 请求
+            response = requests.post(settings.DEEPSEEK_API_URL + "/chat/completions", headers=headers, json=data)
+            # 检查响应状态码
+            if response.status_code == 200:
+                result_data = response.json()
+                # 提取并处理核心内容
+                content = result_data['choices'][0]['message']['content']
+                html_content = markdown.markdown(content, extensions=['extra', 'sane_lists'])
+                result = {
+                    'content': html_content,  # 替换为 HTML 格式
+                    'raw_data': result_data
+                }
+            else:
+                result = {"error": "智能分析服务暂时不可用，请稍后重试"}
+        except Exception as e:
+            result = {"error": "系统处理异常，请联系管理员"}
+        return render(request, 'ai_health_prediction.html', {
+            'result': result,
+            'symptoms': symptoms,
+            'patient': patient
+        })
