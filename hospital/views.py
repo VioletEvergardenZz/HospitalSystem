@@ -486,51 +486,51 @@ class AIHealthPredictionView(View):
             return redirect('/patientlogin/')  # 如果患者未登录，重定向到登录页面
         # 根据手机号查询患者信息
         patient = Patient.objects.filter(phone=phone).first()
-        return render(request, 'ai_health_prediction.html', {'result': None, 'patient': patient})
+        return render(request, 'ai_health_prediction.html',
+                      {'result': None, 'patient': patient, 'symptoms': ''})  # 初始时symptoms为空
 
     def post(self, request):
-        # 获取 session 中的手机号
         phone = request.session.get('patient_phone', '')
         if not phone:
-            return redirect('/patientlogin/')  # 如果患者未登录，重定向到登录页面
-        # 根据手机号查询患者信息
+            return redirect('/patientlogin/')
         patient = Patient.objects.filter(phone=phone).first()
-
+        if not patient:
+            return redirect('/patientlogin/')
         symptoms = request.POST.get('symptoms', '')
         result = None
         try:
-            # 构建请求头
-            headers = {
-                "Content-Type": "application/json",
-                "Authorization": f"Bearer {settings.DEEPSEEK_API_KEY}"
+            # 初始化OpenAI客户端，指向DeepSeek的API
+            client = OpenAI(
+                api_key=settings.DEEPSEEK_API_KEY,
+                base_url=settings.DEEPSEEK_API_URL
+            )
+            # 构建发送给AI的消息
+            messages = [
+                {"role": "system",
+                 "content": "You are a helpful assistant specialized in providing preliminary medical advice. Please suggest possible conditions and recommended hospital departments based on the symptoms provided. Format your response clearly, possibly using markdown for lists or emphasis."},
+                {"role": "user", "content": f"患者出现了以下症状：{symptoms}。请诊断可能的疾病和建议就诊科室。"}
+            ]
+            # 发起API请求 (非流式)
+            # 如果希望实现页面动态文本显示（流式），后端需要支持流式响应，这会更复杂一些。
+            response = client.chat.completions.create(
+                model="deepseek-chat",
+                messages=messages,
+                stream=False  # 设置为False表示非流式，一次性获取完整结果
+            )
+            # 提取AI的回复内容
+            content = response.choices[0].message.content
+            # 将Markdown内容转换为HTML
+            html_content = markdown.markdown(content, extensions=['extra', 'sane_lists', 'nl2br'])  # nl2br会将换行符转为<br>
+            result = {
+                'content': html_content,
+                'raw_data': content  # 可以选择性保留原始文本
             }
-            # 构建请求体
-            data = {
-                "model": "deepseek-chat",
-                "messages": [
-                    {"role": "system", "content": "You are a helpful assistant"},
-                    {"role": "user", "content": f"患者出现了{symptoms}的症状，请诊断可能的疾病和建议就诊科室。"}
-                ]
-            }
-            # 发起 POST 请求
-            response = requests.post(settings.DEEPSEEK_API_URL + "/chat/completions", headers=headers, json=data)
-            # 检查响应状态码
-            if response.status_code == 200:
-                result_data = response.json()
-                # 提取并处理核心内容
-                content = result_data['choices'][0]['message']['content']
-                html_content = markdown.markdown(content, extensions=['extra', 'sane_lists'])
-                result = {
-                    'content': html_content,  # 替换为 HTML 格式
-                    'raw_data': result_data
-                }
-            else:
-                result = {"error": "智能分析服务暂时不可用，请稍后重试"}
         except Exception as e:
-            result = {"error": "系统处理异常，请联系管理员"}
+            print(f"AI API Error: {e}")  # 打印错误到服务器日志
+            result = {"error": "智能分析服务暂时不可用或输入无效，请稍后重试或检查输入。"}
         return render(request, 'ai_health_prediction.html', {
             'result': result,
-            'symptoms': symptoms,
+            'symptoms': symptoms,  # 将用户输入的症状传回，以便在表单中重新显示
             'patient': patient
         })
 
@@ -560,15 +560,11 @@ class RandomDietRecommendationView(View):
 #21健康自测
 class HealthSelfAssessmentView(View):
     def get(self, request):
-        # 获取 session 中的手机号
         phone = request.session.get('patient_phone', '')
         if not phone:
-            return redirect('/patientlogin/')  # 如果患者未登录，重定向到登录页面
+            return redirect('/patientlogin/')
         return render(request, 'health_self_assessment.html')
-
-class HealthSelfAssessmentResultView(View):
     def post(self, request):
-        # 获取 session 中的手机号
         phone = request.session.get('patient_phone', '')
         if not phone:
             return redirect('/patientlogin/')  # 如果患者未登录，重定向到登录页面
@@ -581,7 +577,6 @@ class HealthSelfAssessmentResultView(View):
         if not question1 or not question2 or not question3 or not question4 or not question5:
             messages.error(request, '请回答所有问题！')
             return redirect('health_self_assessment')
-        # 这里可以根据用户的回答进行评估，这里简单示例
         score = 0
         if question1 == '否':
             score += 1

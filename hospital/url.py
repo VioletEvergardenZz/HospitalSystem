@@ -35,5 +35,5 @@ urlpatterns = [
     path('random_diet_recommendation/', RandomDietRecommendationView.as_view(), name='random_diet_recommendation'),
 
     path('health_self_assessment/', HealthSelfAssessmentView.as_view(), name='health_self_assessment'),
-    path('health_self_assessment_result/', HealthSelfAssessmentResultView.as_view(),name='health_self_assessment_result'),
+    path('health_self_assessment_result/', HealthSelfAssessmentView.as_view(),name='health_self_assessment_result'),
 ]
