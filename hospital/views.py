@@ -13,7 +13,7 @@ import markdown
 from django.conf import settings
 import random
 
-
+# 处理用户在网页上的各种操作请求，并返回相应的网页内容给用户。每个类通常对应网页上的一个或一组相关功能
 # 01选择身份登录
 class ChooseLoginView(View):
     def get(self, request):
@@ -32,8 +32,8 @@ class PatientLoginView(View):
         patient_list = Patient.objects.filter(phone=phone, password=password)
         if patient_list:
             request.session.clear()
+            # 存入患者姓名，手机号到 session
             request.session['patient'] = patient_list[0].name
-            # 存入手机号到 session
             request.session['patient_phone'] = phone
             return HttpResponseRedirect("/patientcenter/")
         else:
@@ -52,7 +52,9 @@ class DoctorLoginView(View):
             return render(request, 'doctorlogin.html', {'error': error})
         doctor_list = Doctor.objects.filter(phone=phone, password=password)
         if doctor_list:
+            request.session.clear()
             request.session['doctor'] = doctor_list[0].name
+            request.session['doctor_phone'] = phone
             request.session['doctor_image'] = str(doctor_list[0].img)
             return HttpResponseRedirect('/doctorcenter/')
         else:
@@ -303,11 +305,9 @@ class DoctorShowRegistrationView(View):
 # 12患者信息修改
 class PatientUpdateInfoView(View):
     def get(self, request):
-        # 获取 session 中的手机号
         phone = request.session.get('patient_phone', '')
         if not phone:
             return redirect('/patientlogin/')  # 如果患者未登录，重定向到登录页面
-        # 根据手机号查询患者信息
         patient = Patient.objects.filter(phone=phone).first()
         return render(request, 'patientupdateinfo.html', {'patient': patient})
     def post(self, request):
