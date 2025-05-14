@@ -3,14 +3,15 @@ from .models import *
 from django import forms
 from django.core.exceptions import ValidationError
 
+# 对于数据库里的数据进行查看
 admin.site.site_header = '医伴无忧 - 医院挂号预约平台后台管理系统'
 admin.site.index_title = '首页'
 
 
 class DepartmentAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'address')
-    search_fields = ['name', 'address']
-    list_filter = ('name', 'address')
+    search_fields = ['name', 'address']     #  配置搜索框可以搜索的字段
+    list_filter = ('name', 'address')       #  列表搜索
     ordering = ['id']
 
 

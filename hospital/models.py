@@ -9,12 +9,13 @@ class Patient(models.Model):
     sex = models.CharField(u'患者性别', max_length=1)
     age = models.CharField(u'患者年龄', max_length=3)
 
+    # 这部分配置了模型在 Django 管理界面中的显示名称
     class Meta:
-        verbose_name = '患者'
-        verbose_name_plural = '患者列表'
+        verbose_name = '患者'                # 单数形式的中文名称
+        verbose_name_plural = '患者列表'      # 复数形式的中文名称
 
     def __str__(self):
-        return self.name
+        return self.name         # 当打印患者对象时，显示患者姓名
 
 
 # 科室表
